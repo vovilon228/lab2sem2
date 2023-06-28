@@ -1,9 +1,9 @@
-// Включаем библиотеки
+
 #include <iostream>
 #include <memory>
 using namespace std;
 
-// Объявляем паттерн Стратегия для различных алгоритмов
+
 class Strategy {
 public:
     virtual void executeAlgorithm() const = 0;
@@ -38,7 +38,7 @@ public:
     }
 };
 
-// Объявляем паттерн Фабричный метод для создания объектов
+
 class AbstractProduct {
 public:
     virtual void performTask() const = 0;
@@ -77,7 +77,7 @@ public:
     }
 };
 
-// Объявляем паттерн Состояние
+
 class State {
 public:
     virtual void handleRequest() = 0;
@@ -112,7 +112,6 @@ public:
     }
 };
 
-// Объявляем паттерн Синглтон
 class Singleton {
 private:
     static Singleton* instance;
@@ -135,7 +134,7 @@ public:
 
 Singleton* Singleton::instance = nullptr;
 
-// Адаптер
+
 class Adaptee {
 public:
     void specificRequest() {
@@ -160,7 +159,6 @@ public:
     }
 };
 
-// Декоратор
 class Component {
 public:
     virtual void operation() = 0;
@@ -196,7 +194,7 @@ public:
     }
 };
 
-// Наблюдатель
+
 #include <set>
 
 class Observer {
@@ -231,15 +229,15 @@ public:
     }
 };
 
-// Тестируем наши паттерны
+
 int main() {
-    // Стратегия
+
     Context context(std::make_unique<ConcreteStrategyA>());
     context.executeStrategy();
     context.setStrategy(std::make_unique<ConcreteStrategyB>());
     context.executeStrategy();
 
-    // Фабричный метод
+
     ConcreteFactoryA factoryA;
     std::unique_ptr<AbstractProduct> productA = factoryA.createProduct();
     productA->performTask();
@@ -248,30 +246,30 @@ int main() {
     std::unique_ptr<AbstractProduct> productB = factoryB.createProduct();
     productB->performTask();
 
-    // Состояние
+
     ContextState contextState(std::make_unique<ConcreteStateA>());
     contextState.request();
     contextState.setState(std::make_unique<ConcreteStateB>());
     contextState.request();
 
-    // Синглтон
+
     Singleton::getInstance()->performTask();
 
-    // Адаптер
+
     Adaptee* adaptee = new Adaptee();
     Target* adapter = new Adapter(adaptee);
     adapter->request();
     delete adapter;
     delete adaptee;
 
-    // Декоратор
+
     ConcreteComponent* component = new ConcreteComponent();
     Decorator* decorator = new ConcreteDecorator(component);
     decorator->operation();
     delete decorator;
     delete component;
 
-    // Наблюдатель
+  
     Subject subject;
     ConcreteObserver observer;
     subject.attach(&observer);
